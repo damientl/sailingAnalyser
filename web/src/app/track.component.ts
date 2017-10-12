@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { SegmentService } from './segment.service'
 import { OnInit, ElementRef, ViewChild } from '@angular/core';
 import { Segment } from './segment';
+import { TrackWindow } from './track.window';
+import { CanvasPoint } from './canvas.point';
+import { Calculation } from './calculation';
 
 @Component({
   selector: 'track',
@@ -11,8 +14,11 @@ import { Segment } from './segment';
 export class TrackComponent  implements OnInit {
   @ViewChild('myCanvas') canvasRef: ElementRef;
   segments:Segment[];
+  trackWindow:TrackWindow;
 
-  constructor(private segmentService: SegmentService) {}
+  constructor(private segmentService: SegmentService) {
+    this.trackWindow = new TrackWindow();
+  }
 
   getSegments():void {
     this.segmentService.getSegments().then(segments => this.segments = segments);
@@ -23,8 +29,16 @@ export class TrackComponent  implements OnInit {
     let ctx: CanvasRenderingContext2D =
     this.canvasRef.nativeElement.getContext('2d');
     ctx.beginPath();
-    ctx.moveTo(0,0);
-    ctx.lineTo(300,150);
+
+    let i = 1;
+    for (let seg of this.segments) {
+      let point = new Calculation().pointOnCanvas(new CanvasPoint(seg.lat,seg.lon), this.trackWindow);
+      if(i == 1){
+        ctx.moveTo(point.x, point.y);
+      } else {
+        ctx.lineTo(point.x, point.y);
+      }
+    }
     ctx.stroke();
 
   }

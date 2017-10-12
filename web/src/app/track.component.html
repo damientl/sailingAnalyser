@@ -3,6 +3,6 @@
   <li *ngFor="let seg of segments">
     lat: {{seg.lat}} - lon: {{seg.lon}}
   </li>
-  <canvas #myCanvas width="500" height="500">
+  <canvas #myCanvas width="{{trackWindow.canvasWidth}}" height="{{trackWindow.canvasHeight}}">
   </canvas>
 </ul>
