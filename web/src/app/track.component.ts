@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { SegmentService } from './segment.service'
-import { OnInit, ElementRef, ViewChild } from '@angular/core';
+import { OnInit, ElementRef, ViewChild, Input } from '@angular/core';
 import { Segment } from './segment';
 import { TrackWindow } from './track.window';
 import { CanvasPoint } from './canvas.point';
@@ -14,7 +14,7 @@ import { Calculation } from './calculation';
 export class TrackComponent  implements OnInit {
   @ViewChild('myCanvas') canvasRef: ElementRef;
   segments:Segment[];
-  trackWindow:TrackWindow;
+  @Input() trackWindow:TrackWindow;
 
   constructor(private segmentService: SegmentService) {
     this.trackWindow = new TrackWindow();
@@ -38,7 +38,7 @@ export class TrackComponent  implements OnInit {
 
     let i = 1;
     for (let seg of this.segments) {
-      let point = new Calculation().pointOnCanvas(new CanvasPoint(seg.lat,seg.lon), this.trackWindow);
+      let point = new Calculation().pointOnCanvas(new CanvasPoint(seg.lon,seg.lat), this.trackWindow);
 
       if(i == 1){
         ctx.moveTo(point.x, point.y);
@@ -50,5 +50,9 @@ export class TrackComponent  implements OnInit {
       i++;
     }
     ctx.stroke();
+  }
+
+  handleZoomChange():void{
+      this.drawSegments();
   }
 }

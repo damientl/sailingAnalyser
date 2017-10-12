@@ -1,5 +1,8 @@
 <h2>Segmentos</h2>
 <ul>
+  <li>
+    <div><label>Zoom: </label> <input [(ngModel)]="trackWindow.lonZoom" (keyup)="handleZoomChange()" placeholder="0"></div>
+  </li>
   <li *ngFor="let seg of segments">
     lat: {{seg.lat}} - lon: {{seg.lon}}
   </li>
