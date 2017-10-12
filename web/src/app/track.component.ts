@@ -21,11 +21,17 @@ export class TrackComponent  implements OnInit {
   }
 
   getSegments():void {
-    this.segmentService.getSegments().then(segments => this.segments = segments);
+    this.segmentService.getSegments().then(segments => {
+      this.segments = segments;
+      this.drawSegments();
+    });
   }
 
   ngOnInit(): void {
     this.getSegments();
+  }
+
+  drawSegments(): void {
     let ctx: CanvasRenderingContext2D =
     this.canvasRef.nativeElement.getContext('2d');
     ctx.beginPath();
@@ -33,13 +39,16 @@ export class TrackComponent  implements OnInit {
     let i = 1;
     for (let seg of this.segments) {
       let point = new Calculation().pointOnCanvas(new CanvasPoint(seg.lat,seg.lon), this.trackWindow);
+
       if(i == 1){
         ctx.moveTo(point.x, point.y);
+        console.log(`move point x: ${ point.x }, point y: ${ point.y }.`);
       } else {
         ctx.lineTo(point.x, point.y);
+        console.log(`line point x: ${ point.x }, point y: ${ point.y }.`);
       }
+      i++;
     }
     ctx.stroke();
-
   }
 }

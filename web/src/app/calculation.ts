@@ -24,9 +24,17 @@ export class Calculation{
 
   pointOnCanvas(gpsPoint:CanvasPoint, trackWindow:TrackWindow):CanvasPoint{
     let center = trackWindow.center;
-    let lonOffset = ((gpsPoint.x - center.x) / (trackWindow.getLonZoom())) * (trackWindow.canvasWidth / 2);
-    let latOffset = ((gpsPoint.y - center.y) / (trackWindow.getLatZoom())) * (trackWindow.canvasHeight / 2);
-    return this.sumPoints(center, new CanvasPoint(lonOffset, latOffset));
+    let canvasCenter = new CanvasPoint(trackWindow.canvasWidth / 2, trackWindow.canvasHeight / 2);
+
+    return this.sumPoints(canvasCenter, this.transformToCanvas(this.centerOffset(gpsPoint, center), trackWindow));
+  }
+  transformToCanvas(offset:CanvasPoint, trackWindow:TrackWindow):CanvasPoint{
+    return new CanvasPoint(
+      (offset.x / trackWindow.getLonZoom()) * (trackWindow.canvasWidth / 2),
+      (offset.y / trackWindow.getLatZoom()) * (trackWindow.canvasHeight / 2));
+  }
+  centerOffset(gpsPoint:CanvasPoint, center):CanvasPoint {
+    return new CanvasPoint(gpsPoint.x - center.x, gpsPoint.y - center.y);
   }
   sumPoints(a:CanvasPoint, b:CanvasPoint):CanvasPoint{
      return new CanvasPoint(a.x + b.x, b.y + a.y);
