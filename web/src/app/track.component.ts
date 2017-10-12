@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { SegmentService } from './segment.service'
-import { OnInit } from '@angular/core';
+import { OnInit, ElementRef, ViewChild } from '@angular/core';
 import { Segment } from './segment';
 
 @Component({
@@ -9,8 +9,10 @@ import { Segment } from './segment';
   providers: [SegmentService]
 })
 export class TrackComponent  implements OnInit {
-  segments:Segment[]
-  constructor(private segmentService: SegmentService) { }
+  @ViewChild('myCanvas') canvasRef: ElementRef;
+  segments:Segment[];
+
+  constructor(private segmentService: SegmentService) {}
 
   getSegments():void {
     this.segmentService.getSegments().then(segments => this.segments = segments);
@@ -18,5 +20,12 @@ export class TrackComponent  implements OnInit {
 
   ngOnInit(): void {
     this.getSegments();
+    let ctx: CanvasRenderingContext2D =
+    this.canvasRef.nativeElement.getContext('2d');
+    ctx.beginPath();
+    ctx.moveTo(0,0);
+    ctx.lineTo(300,150);
+    ctx.stroke();
+
   }
 }
