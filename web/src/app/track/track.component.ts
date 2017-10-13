@@ -1,20 +1,19 @@
-import { Component } from '@angular/core';
-import { SegmentService } from '../service/segment.service'
+import { Component, ViewChild } from '@angular/core';
+import { SegmentComponent } from '../segment/segment.component';
 
 @Component({
   selector: 'track',
-  templateUrl: './track.component.html',
-  providers: [SegmentService]
+  templateUrl: './track.component.html'
 })
 export class TrackComponent {
 
-  constructor(private segmentService: SegmentService) {
-  }
+  @ViewChild(SegmentComponent)
+  private segmentComponent: SegmentComponent;
 
   handleZoomChange(event:number):void{
-    this.segmentService.zoomChange(event);
+    this.segmentComponent.handleZoomChange(event);
   }
   handleTimeChange(event:number):void{
-    this.segmentService.timeChange(event);
+    this.segmentComponent.handleTimeChange(event);
   }
 }

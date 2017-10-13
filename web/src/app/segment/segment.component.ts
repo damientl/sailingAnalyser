@@ -6,6 +6,7 @@ import { CanvasPoint } from '../model/canvas.point';
 import { SpeedMath } from '../util/speed.math';
 import { CanvasMath } from '../util/canvas.math';
 import { DateUtil } from '../util/date.util';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'segment',
@@ -20,20 +21,13 @@ export class SegmentComponent implements OnInit  {
 
     constructor(private segmentService: SegmentService) {
       this.trackWindow = new TrackWindow();
-    }
-
-    getSegments():void {
-      this.segmentService.getSegments().then(segments => {
-        this.segments = segments;
-        this.drawSegments();
-      });
-    }
-
-    ngOnInit(): void {
-      this.getSegments();
+      this.segments = [];
     }
 
     drawSegments(): void {
+      if(this.segments.length == 0){
+        return;
+      }
       let ctx: CanvasRenderingContext2D =
         this.canvasRef.nativeElement.getContext('2d');
 
@@ -73,12 +67,24 @@ export class SegmentComponent implements OnInit  {
       this.canvasRef.nativeElement.getContext('2d');
       ctx.clearRect(0, 0, this.trackWindow.canvasWidth, this.trackWindow.canvasHeight);
     }
-    
+
+    getSegments():void {
+      this.segmentService.getSegments().then(segments => {
+        this.segments = segments;
+        this.drawSegments();
+      });
+    }
+
+    ngOnInit(): void {
+      this.getSegments();
+    }
+
     handleZoomChange(event:number):void{
       this.trackWindow.setZoom(event);
       this.clearSegments();
       this.drawSegments();
     }
+
     handleTimeChange(event:number):void{
       console.log('time');
     }

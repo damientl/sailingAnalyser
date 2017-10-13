@@ -7,11 +7,4 @@ export class SegmentService {
   getSegments(): Promise<Segment[]> {
     return Promise.resolve(SEGMENTS);
   }
-
-  zoomChange(event):void{
-
-  }
-  timeChange(event):void{
-
-  }
 }
