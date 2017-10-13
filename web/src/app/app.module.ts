@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { TrackComponent } from './track/track.component';
 import { ZoomComponent } from './zoom/zoom.component';
 import { TimeComponent } from './time/time.component';
+import { SegmentComponent } from './segment/segment.component';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import { TimeComponent } from './time/time.component';
     AppComponent,
     TrackComponent,
     ZoomComponent,
-    TimeComponent
+    TimeComponent,
+    SegmentComponent
   ],
   imports: [
     BrowserModule,
