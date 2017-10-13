@@ -1,4 +1,4 @@
-import {Segment} from './segment';
+import {Segment} from './model/segment';
 
 export const SEGMENTS: Segment[] = [
   { lat: -31.773808, lon: -52.218395, time:'2017-10-08T14:14:26.300Z' },

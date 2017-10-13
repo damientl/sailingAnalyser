@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Segment } from './segment'
-import { SEGMENTS } from './mock.segment'
+import { Segment } from '../model/segment'
+import { SEGMENTS } from '../mock.segment'
 
 @Injectable()
 export class SegmentService {

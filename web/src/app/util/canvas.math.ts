@@ -1,5 +1,5 @@
-import { CanvasPoint } from './canvas.point';
-import { TrackWindow } from './track.window';
+import { CanvasPoint } from '../model/canvas.point';
+import { TrackWindow } from '../model/track.window';
 
 export class CanvasMath{
 

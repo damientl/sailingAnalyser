@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { SegmentService } from './segment.service'
+import { SegmentService } from '../service/segment.service'
 import { OnInit, ElementRef, ViewChild} from '@angular/core';
-import { Segment } from './segment';
-import { TrackWindow } from './track.window';
-import { CanvasPoint } from './canvas.point';
-import { SpeedMath } from './speed.math';
-import { CanvasMath } from './canvas.math';
-import { DateUtil } from './date.util';
+import { Segment } from '../model/segment';
+import { TrackWindow } from '../model/track.window';
+import { CanvasPoint } from '../model/canvas.point';
+import { SpeedMath } from '../util/speed.math';
+import { CanvasMath } from '../util/canvas.math';
+import { DateUtil } from '../util/date.util';
 
 @Component({
   selector: 'track',

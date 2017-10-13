@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { TrackComponent } from './track.component';
+import { TrackComponent } from './track/track.component';
 
 @Component({
   selector: 'app-root',

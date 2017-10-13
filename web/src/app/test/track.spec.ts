@@ -1,7 +1,7 @@
-import { CanvasMath } from './canvas.math';
-import { SpeedMath } from './speed.math';
-import { TrackWindow } from './track.window';
-import { CanvasPoint } from './canvas.point';
+import { CanvasMath } from '../util/canvas.math';
+import { SpeedMath } from '../util/speed.math';
+import { TrackWindow } from '../model/track.window';
+import { CanvasPoint } from '../model/canvas.point';
 
 describe('1st tests', () => {
   it('point on canvas', () => {
