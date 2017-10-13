@@ -3,6 +3,9 @@
   <li>
     <div><label>Zoom: </label> <input [(ngModel)]="trackWindow.lonZoom" (keyup)="handleZoomChange()" placeholder="0"></div>
   </li>
+    <li>
+      <zoom></zoom>
+    </li>
   <li *ngFor="let seg of segments">
     lat: {{seg.lat}} - lon: {{seg.lon}}
   </li>

@@ -45,26 +45,27 @@ export class TrackComponent  implements OnInit {
   }
 
   drawSegment(seg:Segment, ctx, i):void{
+    if(i >= this.segments.length){
+      return;
+    }
+
     let canvasMath = new CanvasMath();
     let speedMath = new SpeedMath();
     let dateUtil = new DateUtil();
     let segPoint = new CanvasPoint(seg.lon,seg.lat);
     let point = canvasMath.pointOnCanvas(segPoint, this.trackWindow);
 
-    if(i < this.segments.length){
-      let nextSeg = this.segments[i];
-      let nextSegPoint =  new CanvasPoint(nextSeg.lon,nextSeg.lat);
-      let nextPoint = canvasMath.pointOnCanvas(nextSegPoint, this.trackWindow);
-      let difTime = dateUtil.difTime(dateUtil.toJSDate(seg.time), dateUtil.toJSDate(nextSeg.time));
+    let nextSeg = this.segments[i];
+    let nextSegPoint =  new CanvasPoint(nextSeg.lon,nextSeg.lat);
+    let nextPoint = canvasMath.pointOnCanvas(nextSegPoint, this.trackWindow);
+    let difTime = dateUtil.difTime(dateUtil.toJSDate(seg.time), dateUtil.toJSDate(nextSeg.time));
 
-      ctx.beginPath();
-      ctx.lineWidth=5;
-      ctx.strokeStyle = speedMath.perc2color(speedMath.percSpeed(speedMath.speed(segPoint, nextSegPoint, difTime)));
-      ctx.moveTo(point.x, point.y);
-      ctx.lineTo(nextPoint.x, nextPoint.y);
-      ctx.stroke();
-    }
-
+    ctx.beginPath();
+    ctx.lineWidth=5;
+    ctx.strokeStyle = speedMath.perc2color(speedMath.percSpeed(speedMath.speed(segPoint, nextSegPoint, difTime)));
+    ctx.moveTo(point.x, point.y);
+    ctx.lineTo(nextPoint.x, nextPoint.y);
+    ctx.stroke();
   }
 
   clearSegments():void {
