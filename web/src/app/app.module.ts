@@ -5,13 +5,15 @@ import { D3SliderDirective } from 'ng-d3-slider/d3-slider.directive';
 import { AppComponent } from './app.component';
 import { TrackComponent } from './track/track.component';
 import { ZoomComponent } from './zoom/zoom.component';
+import { TimeComponent } from './time/time.component';
 
 @NgModule({
   declarations: [
     D3SliderDirective,
     AppComponent,
     TrackComponent,
-    ZoomComponent
+    ZoomComponent,
+    TimeComponent
   ],
   imports: [
     BrowserModule,

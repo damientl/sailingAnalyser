@@ -1,11 +1,17 @@
 <h2>Segmentos</h2>
 <ul>
   <li>
-    <div><label>Zoom: </label> <input [(ngModel)]="trackWindow.lonZoom" (keyup)="handleZoomChange()" placeholder="0"></div>
+    <div><label>Time: </label> </div>
   </li>
-    <li>
-      <zoom></zoom>
-    </li>
+  <li>
+    <time (changeValue)="handleTimeChange($event)"></time>
+  </li>
+  <li>
+    <div><label>Zoom: </label> </div>
+  </li>
+  <li>
+    <zoom (changeValue)="handleZoomChange($event)"></zoom>
+  </li>
   <li *ngFor="let seg of segments">
     lat: {{seg.lat}} - lon: {{seg.lon}}
   </li>

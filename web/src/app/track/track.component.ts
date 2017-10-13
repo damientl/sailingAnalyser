@@ -74,8 +74,12 @@ export class TrackComponent  implements OnInit {
     ctx.clearRect(0, 0, this.trackWindow.canvasWidth, this.trackWindow.canvasHeight);
   }
 
-  handleZoomChange():void{
+  handleZoomChange(event:number):void{
+    this.trackWindow.setZoom(event);
     this.clearSegments();
     this.drawSegments();
+  }
+  handleTimeChange(event:number):void{
+    console.log('time');
   }
 }
