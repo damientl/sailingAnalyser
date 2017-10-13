@@ -4,7 +4,9 @@ import { OnInit, ElementRef, ViewChild} from '@angular/core';
 import { Segment } from './segment';
 import { TrackWindow } from './track.window';
 import { CanvasPoint } from './canvas.point';
-import { Calculation } from './calculation';
+import { SpeedMath } from './speed.math';
+import { CanvasMath } from './canvas.math';
+import { DateUtil } from './date.util';
 
 @Component({
   selector: 'track',
@@ -34,24 +36,35 @@ export class TrackComponent  implements OnInit {
   drawSegments(): void {
     let ctx: CanvasRenderingContext2D =
       this.canvasRef.nativeElement.getContext('2d');
-    ctx.beginPath();
 
     let i = 1;
     for (let seg of this.segments) {
-      this.drawSegment(seg, ctx, i==1);
+      this.drawSegment(seg, ctx, i);
       i++;
     }
-    ctx.stroke();
   }
-  
-  drawSegment(seg, ctx, first):void{
-    let point = new Calculation().pointOnCanvas(new CanvasPoint(seg.lon,seg.lat), this.trackWindow);
 
-    if(first){
+  drawSegment(seg:Segment, ctx, i):void{
+    let canvasMath = new CanvasMath();
+    let speedMath = new SpeedMath();
+    let dateUtil = new DateUtil();
+    let segPoint = new CanvasPoint(seg.lon,seg.lat);
+    let point = canvasMath.pointOnCanvas(segPoint, this.trackWindow);
+
+    if(i < this.segments.length){
+      let nextSeg = this.segments[i];
+      let nextSegPoint =  new CanvasPoint(nextSeg.lon,nextSeg.lat);
+      let nextPoint = canvasMath.pointOnCanvas(nextSegPoint, this.trackWindow);
+      let difTime = dateUtil.difTime(dateUtil.toJSDate(seg.time), dateUtil.toJSDate(nextSeg.time));
+
+      ctx.beginPath();
+      ctx.lineWidth=5;
+      ctx.strokeStyle = speedMath.perc2color(speedMath.percSpeed(speedMath.speed(segPoint, nextSegPoint, difTime)));
       ctx.moveTo(point.x, point.y);
-    } else {
-      ctx.lineTo(point.x, point.y);
+      ctx.lineTo(nextPoint.x, nextPoint.y);
+      ctx.stroke();
     }
+
   }
 
   clearSegments():void {
