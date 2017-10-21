@@ -6,7 +6,6 @@ import { CanvasPoint } from '../model/canvas.point';
 import { SpeedMath } from '../util/speed.math';
 import { CanvasMath } from '../util/canvas.math';
 import { DateUtil } from '../util/date.util';
-import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'segment',
@@ -25,7 +24,7 @@ export class SegmentComponent implements OnInit  {
     }
 
     drawSegments(): void {
-      if(this.segments.length == 0){
+      if(this.segments.length === 0){
         return;
       }
 

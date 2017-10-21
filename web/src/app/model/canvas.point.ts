@@ -1,8 +1,8 @@
-export class CanvasPoint{
-  constructor(x: number, y:number) {
+export class CanvasPoint {
+  constructor(x: number, y: number) {
         this.x = x;
         this.y = y;
     }
-  x:number;
-  y:number;
+  x: number;
+  y: number;
 }
