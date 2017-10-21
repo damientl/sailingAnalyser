@@ -1,6 +1,6 @@
 import {Segment} from './model/segment';
 
-export const SEGMENTS: Segment[] = [
+export const SEGMENTS = [
   { lat: -31.773808, lon: -52.218395, time:'2017-10-08T14:14:26.300Z' },
   { lat: -31.773908, lon: -52.218495, time:'2017-10-08T14:14:28.500Z' },
   { lat: -31.774008, lon: -52.218395, time:'2017-10-08T14:14:33.900Z' },

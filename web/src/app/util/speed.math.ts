@@ -1,5 +1,7 @@
 import { CanvasPoint } from '../model/canvas.point';
 import { TrackWindow } from '../model/track.window';
+import { Segment } from '../model/segment';
+import { DateUtil } from '../util/date.util';
 
 const MAXSPEED = 20;
 const MINSPEED = 5;
@@ -9,6 +11,14 @@ export class SpeedMath{
 
   maxSpeed = MAXSPEED;
   minSpeed = MINSPEED;
+
+
+  speedColor(a:Segment, b:Segment):string{
+    let dateUtil = new DateUtil();
+    let difTime = dateUtil.difTime(dateUtil.toJSDate(a.time), dateUtil.toJSDate(b.time));
+
+    return  this.perc2color(this.percSpeed(this.speed(a.segToPoint(), b.segToPoint(), difTime)))
+  }
 
   speed(a:CanvasPoint, b:CanvasPoint, miliseconds:number):number{
     return ((this.measure(a.x, a.y, b.x, b.y) * 1000)/ miliseconds) * MSTOKNOT;
