@@ -6,7 +6,7 @@ import { Component, Output, EventEmitter } from '@angular/core';
 })
 export class TimeComponent {
     value;
-    valueLtr
+    valueLtr;
     minValue;
     maxValue;
     initilalValue;
