@@ -10,10 +10,10 @@ export class TrackComponent {
   @ViewChild(SegmentComponent)
   private segmentComponent: SegmentComponent;
 
-  handleZoomChange(event:number):void{
+  handleZoomChange(event: number): void {
     this.segmentComponent.handleZoomChange(event);
   }
-  handleTimeChange(event:number):void{
+  handleTimeChange(event: number): void {
     this.segmentComponent.handleTimeChange(event);
   }
 }

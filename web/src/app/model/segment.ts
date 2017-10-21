@@ -9,7 +9,7 @@ export class Segment {
     this.lon = lon;
     this.time = time;
   }
-  segToPoint():CanvasPoint {
+  segToPoint(): CanvasPoint {
     return new CanvasPoint(this.lon, this.lat);
   }
 }

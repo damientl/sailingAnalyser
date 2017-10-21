@@ -7,7 +7,7 @@ import { Component, Output, EventEmitter } from '@angular/core';
 export class ZoomComponent {
 
   value;
-  valueLtr
+  valueLtr;
   minValue;
   maxValue;
   initilalValue;
@@ -34,11 +34,11 @@ export class ZoomComponent {
     this.lineWidth = 7;
     this.circleColor = 'pink';
     this.circleSize = 8;
-    this.toggleDisable = 'enable'
-    this.toggleDisableText = 'disable'
+    this.toggleDisable = 'enable';
+    this.toggleDisableText = 'disable';
  }
  selectedValue(iSelectedValue){
-    this.value = iSelectedValue
+    this.value = iSelectedValue;
     this.changeValue.emit(iSelectedValue);
  }
 

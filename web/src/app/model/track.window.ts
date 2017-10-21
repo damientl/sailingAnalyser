@@ -2,25 +2,25 @@ import { CanvasPoint } from './canvas.point';
 
 const DEFAULT_ZOOM = 0.0008;
 
-export class TrackWindow{
+export class TrackWindow {
   canvasWidth = 500;
   canvasHeight = 500;
-  center = new CanvasPoint(-52.218495, -31.774108);// lon, lat - x, y
-  lonZoom:number;
-  iniZoom:number = DEFAULT_ZOOM;
+  center = new CanvasPoint(-52.218495, -31.774108); // lon, lat - x, y
+  lonZoom: number;
+  iniZoom: number = DEFAULT_ZOOM;
 
   constructor() {
     this.setZoom(50);
   }
 
-  getLatZoom():number{
+  getLatZoom(): number {
     return this.lonZoom * (this.canvasHeight / this.canvasWidth);
   }
 
-  getLonZoom():number{
+  getLonZoom(): number {
     return this.lonZoom;
   }
-  setZoom(number):void{
+  setZoom(number): void {
     this.lonZoom = this.iniZoom * (number / 100);
   }
 }

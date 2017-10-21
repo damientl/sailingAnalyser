@@ -33,11 +33,11 @@ export class TimeComponent {
       this.lineWidth = 7;
       this.circleColor = 'pink';
       this.circleSize = 8;
-      this.toggleDisable = 'enable'
-      this.toggleDisableText = 'disable'
+      this.toggleDisable = 'enable';
+      this.toggleDisableText = 'disable';
    }
-   selectedValue(iSelectedValue){
-      this.value = iSelectedValue
+   selectedValue(iSelectedValue) {
+      this.value = iSelectedValue;
       this.changeValue.emit(iSelectedValue);
    }
 }
