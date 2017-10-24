@@ -71,10 +71,14 @@ export class SegmentComponent implements OnInit  {
     }
 
     getSegments(): void {
-      this.segmentService.getSegments().then(segments => {
-        this.segments = segments;
-        this.drawSegments();
-      });
+      this.segmentService.getSegmentsRest().then(
+          (val) => {
+            this.segments = val;
+            console.log(`val: ${val}`);
+            this.drawSegments();
+          },
+          (err) => console.error(err)
+        );
     }
 
     ngOnInit(): void {

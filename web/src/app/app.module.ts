@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
 import { D3SliderDirective } from 'ng-d3-slider/d3-slider.directive';
 import { AppComponent } from './app.component';
 import { TrackComponent } from './track/track.component';
@@ -19,7 +20,8 @@ import { SegmentComponent } from './segment/segment.component';
   ],
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    HttpModule
   ],
   providers: [],
   bootstrap: [AppComponent]

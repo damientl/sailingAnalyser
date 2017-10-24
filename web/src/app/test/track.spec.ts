@@ -42,9 +42,10 @@ describe('1st tests', () => {
 
     const a = new CanvasPoint(-52.218395, -31.773808);
     const b = new CanvasPoint(-52.218495, -31.773908);
-    // TODO
+
     const diffTime1 = 1;
     const diffTime2 = 2;
+
     const speed1 = new SpeedMath().speed(a, b, diffTime1);
     const speed2 = new SpeedMath().speed(a, b, diffTime2);
     expect(speed1).toBe(speed2 * 2);
