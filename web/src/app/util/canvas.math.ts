@@ -1,5 +1,7 @@
 import { CanvasPoint } from '../model/canvas.point';
 import { TrackWindow } from '../model/track.window';
+import { Borders } from '../model/borders';
+import { Segment } from '../model/segment';
 
 export class CanvasMath {
 
@@ -19,5 +21,44 @@ export class CanvasMath {
     }
     sumPoints(a: CanvasPoint, b: CanvasPoint): CanvasPoint {
        return new CanvasPoint(a.x + b.x, a.y + b.y);
+    }
+
+    findBiggestDistanceSegments(borders:Borders):number{
+      const diffX = borders.max.x - borders.min.x;
+      const diffY = borders.max.y - borders.min.y;
+
+      return Math.max(diffX, diffY);
+    }
+    findCenterPoint(borders:Borders):CanvasPoint{
+      let deltaX = (borders.max.x - borders.min.x)/2;
+      let deltaY = (borders.max.y - borders.min.y)/2;
+/*
+      if(borders.min.x < 0){
+        deltaX = -deltaX;
+      }
+      if(borders.min.y < 0){
+        deltaY = -deltaY;
+      }*/
+
+      return new CanvasPoint(borders.min.x + deltaX, borders.min.y + deltaY);
+    }
+    findBorders(segs:Segment[]):Borders{
+      let minX, minY, maxX, maxY;
+      let i = 0;
+      for(const s of segs){
+        if(i===0){
+          minX = maxX = s.lon;
+          minY = maxY= s.lat;
+        }
+        minX = Math.min(s.lon,minX);
+        minY = Math.min(s.lat,minY);
+        maxX = Math.max(s.lon,maxX);
+        maxY = Math.max(s.lat,maxY);
+
+        i++;
+      }
+      const min = new CanvasPoint(minX,minY);
+      const max = new CanvasPoint(maxX,maxY);
+      return new Borders(min,max);
     }
 }

@@ -6,6 +6,7 @@ import { CanvasPoint } from '../model/canvas.point';
 import { SpeedMath } from '../util/speed.math';
 import { CanvasMath } from '../util/canvas.math';
 import { DateUtil } from '../util/date.util';
+import { Borders } from '../model/borders';
 
 @Component({
   selector: 'segment',
@@ -75,10 +76,19 @@ export class SegmentComponent implements OnInit  {
           (val) => {
             this.segments = val;
             console.log(`val: ${val}`);
+            this.setupCanvas();
             this.drawSegments();
           },
           (err) => console.error(err)
         );
+    }
+    setupCanvas():void{
+      const canvasMath = new CanvasMath();
+
+      const borders:Borders = canvasMath.findBorders(this.segments);
+
+      this.trackWindow.setIniZoom(canvasMath.findBiggestDistanceSegments(borders));
+      this.trackWindow.setCenter(canvasMath.findCenterPoint(borders));
     }
 
     ngOnInit(): void {
