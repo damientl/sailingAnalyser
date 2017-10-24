@@ -75,7 +75,6 @@ export class SegmentComponent implements OnInit  {
       this.segmentService.getSegmentsRest().then(
           (val) => {
             this.segments = val;
-            console.log(`val: ${val}`);
             this.setupCanvas();
             this.drawSegments();
           },
@@ -84,9 +83,7 @@ export class SegmentComponent implements OnInit  {
     }
     setupCanvas():void{
       const canvasMath = new CanvasMath();
-
       const borders:Borders = canvasMath.findBorders(this.segments);
-
       this.trackWindow.setIniZoom(canvasMath.findBiggestDistanceSegments(borders));
       this.trackWindow.setCenter(canvasMath.findCenterPoint(borders));
     }

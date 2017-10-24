@@ -26,10 +26,8 @@ export class TrackWindow {
   setIniZoom(iniZoom):void{
     this.iniZoom = iniZoom;
     this.lonZoom = this.iniZoom * (50 / 100);
-    console.log('inizoom: ' + this.iniZoom);
   }
   setCenter(center:CanvasPoint):void{
     this.center = center;
-    console.log('center' + center.x + 'centery: ' + center.y);
   }
 }

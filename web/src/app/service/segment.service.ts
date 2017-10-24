@@ -27,8 +27,6 @@ export class SegmentService {
       this._http.get('http://localhost:8080/segments')
                   .map((res: Response) => res.json())
                    .subscribe(data => {
-                          console.log(`data: ${data}`);
-                          console.log('this.createSegments: ' + this.createSegments(data));
                           resolve(this.createSegments(data));
                         });
     });
