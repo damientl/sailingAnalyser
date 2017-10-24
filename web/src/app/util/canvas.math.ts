@@ -32,13 +32,6 @@ export class CanvasMath {
     findCenterPoint(borders:Borders):CanvasPoint{
       let deltaX = (borders.max.x - borders.min.x)/2;
       let deltaY = (borders.max.y - borders.min.y)/2;
-/*
-      if(borders.min.x < 0){
-        deltaX = -deltaX;
-      }
-      if(borders.min.y < 0){
-        deltaY = -deltaY;
-      }*/
 
       return new CanvasPoint(borders.min.x + deltaX, borders.min.y + deltaY);
     }
