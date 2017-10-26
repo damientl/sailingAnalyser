@@ -27,7 +27,4 @@ export class TrackWindow {
     this.iniZoom = iniZoom;
     this.lonZoom = this.iniZoom * (50 / 100);
   }
-  setCenter(center:CanvasPoint):void{
-    this.center = center;
-  }
 }

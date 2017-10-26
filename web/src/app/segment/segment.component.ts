@@ -31,8 +31,4 @@ export class SegmentComponent {
       ctx.clearRect(0, 0, this.trackWindow.canvasWidth, this.trackWindow.canvasHeight);
     }
 
-    setTrackWindow(window:TrackWindow):void {
-      this.trackWindow = window;
-    }
-
 }

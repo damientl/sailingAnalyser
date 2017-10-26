@@ -19,6 +19,7 @@ export class SegmentDrawing{
       if (this.segments.length === 0) {
         return;
       }
+      this.segmentComponent.clearSegments();
 
       let i = 1;
       for (const seg of this.segments) {
@@ -46,6 +47,6 @@ export class SegmentDrawing{
       const canvasMath = new CanvasMath();
       const borders:Borders = canvasMath.findBorders(this.segments);
       this.trackWindow.setIniZoom(canvasMath.findBiggestDistanceSegments(borders));
-      this.trackWindow.setCenter(canvasMath.findCenterPoint(borders));
+      this.trackWindow.center = canvasMath.findCenterPoint(borders);
     }
 }
