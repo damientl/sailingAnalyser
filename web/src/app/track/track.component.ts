@@ -2,7 +2,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { SegmentComponent } from '../segment/segment.component';
 import { TrackWindow } from '../model/track.window';
 import { SegmentService } from '../service/segment.service';
-import { SegmentDrawing } from '../util/segment.drawing';
+import { SegmentDrawing } from '../track/segment.drawing';
+import { WindowCenter } from '../track/window.center';
+import {Option, option, some, none} from 'ts-option';
 
 @Component({
   selector: 'track',
@@ -16,6 +18,7 @@ export class TrackComponent implements OnInit  {
 
   trackWindow: TrackWindow;
   segmentDrawing:SegmentDrawing;
+  windowCenter:WindowCenter;
 
   constructor(private segmentService: SegmentService) {
     this.trackWindow = new TrackWindow();
@@ -24,6 +27,7 @@ export class TrackComponent implements OnInit  {
     this.segmentService.getSegmentsRest().then(
         (val) => {
           this.segmentDrawing = new SegmentDrawing(this.segmentComponent, val);
+          this.windowCenter = new WindowCenter(this.trackWindow, val);
           this.segmentDrawing.drawSegments();
         },
         (err) => console.error(err)
@@ -42,6 +46,8 @@ export class TrackComponent implements OnInit  {
   }
 
   handleTimeChange(event: number): void {
+    this.trackWindow.center = this.windowCenter.centerOnTime(event).
+          getOrElse(this.segmentDrawing.getTrackCenter());
     console.log('time');
   }
 

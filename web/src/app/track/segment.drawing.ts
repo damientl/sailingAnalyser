@@ -5,6 +5,7 @@ import { TrackWindow } from '../model/track.window';
 import { SpeedMath } from '../util/speed.math';
 import { CanvasMath } from '../util/canvas.math';
 import { Borders } from '../model/borders';
+import { CanvasPoint } from '../model/canvas.point';
 
 export class SegmentDrawing{
 
@@ -48,5 +49,10 @@ export class SegmentDrawing{
       const borders:Borders = canvasMath.findBorders(this.segments);
       this.trackWindow.setIniZoom(canvasMath.findBiggestDistanceSegments(borders));
       this.trackWindow.center = canvasMath.findCenterPoint(borders);
+    }
+    getTrackCenter():CanvasPoint{
+      const canvasMath = new CanvasMath();
+      const borders:Borders = canvasMath.findBorders(this.segments);
+      return canvasMath.findCenterPoint(borders);
     }
 }
