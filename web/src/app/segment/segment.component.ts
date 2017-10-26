@@ -1,56 +1,17 @@
-import { Component, OnInit, ElementRef, ViewChild} from '@angular/core';
-import { SegmentService } from '../service/segment.service';
-import { Segment } from '../model/segment';
+import { Component, ElementRef, ViewChild} from '@angular/core';
 import { TrackWindow } from '../model/track.window';
 import { CanvasPoint } from '../model/canvas.point';
-import { SpeedMath } from '../util/speed.math';
-import { CanvasMath } from '../util/canvas.math';
-import { DateUtil } from '../util/date.util';
-import { Borders } from '../model/borders';
 
 @Component({
   selector: 'segment',
-  templateUrl: './segment.component.html',
-  providers: [SegmentService]
+  templateUrl: './segment.component.html'
 })
-export class SegmentComponent implements OnInit  {
+export class SegmentComponent {
 
     @ViewChild('myCanvas') canvasRef: ElementRef;
-    segments: Segment[];
     trackWindow: TrackWindow;
 
-    constructor(private segmentService: SegmentService) {
-      this.trackWindow = new TrackWindow();
-      this.segments = [];
-    }
-
-    drawSegments(): void {
-      if (this.segments.length === 0) {
-        return;
-      }
-
-      let i = 1;
-      for (const seg of this.segments) {
-        this.drawSegment(seg, i);
-        i++;
-      }
-    }
-
-    drawSegment(seg: Segment, i): void {
-      if (i >= this.segments.length) {
-        return;
-      }
-
-      const canvasMath = new CanvasMath();
-      const nextSeg: Segment = this.segments[i];
-      const speedMath = new SpeedMath();
-
-      const color = speedMath.speedColor(seg, nextSeg);
-
-      this.drawSegLine(canvasMath.pointOnCanvas(seg.segToPoint(), this.trackWindow),
-                      canvasMath.pointOnCanvas(nextSeg.segToPoint(), this.trackWindow)
-                      , color);
-    }
+    constructor() {}
 
     getCtx(): CanvasRenderingContext2D {
       return this.canvasRef.nativeElement.getContext('2d');
@@ -65,41 +26,13 @@ export class SegmentComponent implements OnInit  {
       ctx.lineTo(b.x, b.y);
       ctx.stroke();
     }
-
     clearSegments(): void {
       const ctx: CanvasRenderingContext2D = this.getCtx();
       ctx.clearRect(0, 0, this.trackWindow.canvasWidth, this.trackWindow.canvasHeight);
     }
 
-    getSegments(): void {
-      this.segmentService.getSegmentsRest().then(
-          (val) => {
-            this.segments = val;
-            this.setupCanvas();
-            this.drawSegments();
-          },
-          (err) => console.error(err)
-        );
-    }
-    setupCanvas():void{
-      const canvasMath = new CanvasMath();
-      const borders:Borders = canvasMath.findBorders(this.segments);
-      this.trackWindow.setIniZoom(canvasMath.findBiggestDistanceSegments(borders));
-      this.trackWindow.setCenter(canvasMath.findCenterPoint(borders));
-    }
-
-    ngOnInit(): void {
-      this.getSegments();
-    }
-
-    handleZoomChange(event: number): void {
-      this.trackWindow.setZoom(event);
-      this.clearSegments();
-      this.drawSegments();
-    }
-
-    handleTimeChange(event: number): void {
-      console.log('time');
+    setTrackWindow(window:TrackWindow):void {
+      this.trackWindow = window;
     }
 
 }
