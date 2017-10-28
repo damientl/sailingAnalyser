@@ -5,4 +5,11 @@ export class CanvasPoint {
     }
   x: number;
   y: number;
+
+  equals(point:CanvasPoint):boolean {
+    if(point === undefined || point === null){
+      return false;
+    }
+    return this.x === point.x && this.y === point.y;
+  }
 }

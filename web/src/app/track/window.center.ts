@@ -5,7 +5,17 @@ import {Option, option, some, none} from 'ts-option';
 
 
 export class WindowCenter{
-  constructor(private trackWindow:TrackWindow, private segs:Segment[]){
+  constructor(private segs:Segment[]){
+  }
+  static difTime(a:Date,b:Date):number{
+    return b.getTime() - a.getTime();
+  }
+  static totalTime(a:Date, b:Date):number{
+    return WindowCenter.difTime(a,b);
+  }
+  static percTime(date:Date, perc:number, total:number){
+    const offset = total * (perc/100);
+    return new Date(date.getTime() + offset);
   }
   centerOnTime(time:number):Option<CanvasPoint>{
     if(this.segs.length === 0){
@@ -13,7 +23,7 @@ export class WindowCenter{
     }
     const initialTime = new Date(this.segs[0].time);
     const finalTime =  new Date(this.segs[this.segs.length-1].time);
-    const percentTime = this.percTime(initialTime, time, this.totalTime(initialTime,finalTime));
+    const percentTime = WindowCenter.percTime(initialTime, time, WindowCenter.totalTime(initialTime,finalTime));
     return option( this.findClosestTime(percentTime).segToPoint());
   }
 
@@ -21,22 +31,12 @@ export class WindowCenter{
     let maxDif = Date.now();
     let closestSeg:Segment = this.segs[0];
     for(const seg of this.segs){
-      const dif = this.difTime(new Date(seg.time), percentTime);
+      const dif = WindowCenter.difTime(new Date(seg.time), percentTime);
       if(dif < maxDif){
         closestSeg = seg;
         maxDif = dif;
       }
     }
     return closestSeg;
-  }
-  difTime(a:Date,b:Date):number{
-    return b.getMilliseconds() - a.getMilliseconds();
-  }
-  totalTime(a:Date, b:Date):number{
-    return this.difTime(a,b);
-  }
-  percTime(date:Date, perc:number, total:number){
-    const offset = total * (perc/100);
-    return new Date(date.getMilliseconds() + offset);
   }
 }

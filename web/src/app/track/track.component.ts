@@ -27,7 +27,7 @@ export class TrackComponent implements OnInit  {
     this.segmentService.getSegmentsRest().then(
         (val) => {
           this.segmentDrawing = new SegmentDrawing(this.segmentComponent, val);
-          this.windowCenter = new WindowCenter(this.trackWindow, val);
+          this.windowCenter = new WindowCenter(val);
           this.segmentDrawing.drawSegments();
         },
         (err) => console.error(err)
@@ -48,7 +48,7 @@ export class TrackComponent implements OnInit  {
   handleTimeChange(event: number): void {
     this.trackWindow.center = this.windowCenter.centerOnTime(event).
           getOrElse(this.segmentDrawing.getTrackCenter());
-    console.log('time');
+    console.log('time' + event);
   }
 
 }
