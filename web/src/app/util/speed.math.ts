@@ -11,23 +11,7 @@ export class SpeedMath {
 
   maxSpeed = MAXSPEED;
   minSpeed = MINSPEED;
-
-
-  speedColor(a: Segment, b: Segment): string {
-    const dateUtil = new DateUtil();
-    const difTime = dateUtil.difTime(dateUtil.toJSDate(a.time), dateUtil.toJSDate(b.time));
-
-    return  this.perc2color(this.percSpeed(this.speed(a.segToPoint(), b.segToPoint(), difTime)));
-  }
-
-  speed(a: CanvasPoint, b: CanvasPoint, miliseconds: number): number {
-    return ((this.measure(a.x, a.y, b.x, b.y) * 1000) / miliseconds) * MSTOKNOT;
-  }
-
-  percSpeed(speed: number): number {
-    return ((speed - this.minSpeed) / this.maxSpeed) * 100;
-  }
-  perc2color(perc): string {
+  static perc2color(perc): string {
     if(perc > 100){
       perc = 0;
     } else {
@@ -44,6 +28,21 @@ export class SpeedMath {
     }
     let h = r * 0x10000 + g * 0x100 + b * 0x1;
     return '#' + ('000000' + h.toString(16)).slice(-6);
+  }
+
+
+  speedColor(a: Segment, b: Segment): string {
+    const difTime = DateUtil.difTime(DateUtil.toJSDate(a.time), DateUtil.toJSDate(b.time));
+
+    return  SpeedMath.perc2color(this.percSpeed(this.speed(a.segToPoint(), b.segToPoint(), difTime)));
+  }
+
+  speed(a: CanvasPoint, b: CanvasPoint, miliseconds: number): number {
+    return ((this.measure(a.x, a.y, b.x, b.y) * 1000) / miliseconds) * MSTOKNOT;
+  }
+
+  percSpeed(speed: number): number {
+    return ((speed - this.minSpeed) / this.maxSpeed) * 100;
   }
   measure(lon1, lat1, lon2, lat2):number{  // generally used geo measurement function
     let R = 6378.137; // Radius of earth in KM

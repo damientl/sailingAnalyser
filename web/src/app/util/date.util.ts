@@ -1,10 +1,10 @@
 export class DateUtil {
-  toJSDate (dateTime: string): Date {
+  static toJSDate (dateTime: string): Date {
     // format: yyyy-mm-ddThh:mm:ssZ
     return new Date(dateTime);
   }
 
-  difTime (a: Date, b: Date): number {
+  static difTime (a: Date, b: Date): number {
     const date1_ms = a.getTime();
     const date2_ms = b.getTime();
 

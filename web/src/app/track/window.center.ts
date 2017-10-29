@@ -2,16 +2,13 @@ import { Segment } from '../model/segment';
 import { TrackWindow } from '../model/track.window';
 import { CanvasPoint } from '../model/canvas.point';
 import {Option, option, some, none} from 'ts-option';
-
+import { DateUtil } from '../util/date.util';
 
 export class WindowCenter{
   constructor(private segs:Segment[]){
   }
-  static difTime(a:Date,b:Date):number{
-    return b.getTime() - a.getTime();
-  }
   static totalTime(a:Date, b:Date):number{
-    return WindowCenter.difTime(a,b);
+    return DateUtil.difTime(a,b);
   }
   static percTime(date:Date, perc:number, total:number){
     const offset = total * (perc/100);
@@ -31,7 +28,7 @@ export class WindowCenter{
     let maxDif = Date.now();
     let closestSeg:Segment = this.segs[0];
     for(const seg of this.segs){
-      const dif = Math.abs(WindowCenter.difTime(new Date(seg.time), percentTime));
+      const dif = Math.abs(DateUtil.difTime(new Date(seg.time), percentTime));
       if(dif < maxDif){
         closestSeg = seg;
         maxDif = dif;

@@ -8,6 +8,7 @@ import { TrackComponent } from './track/track.component';
 import { ZoomComponent } from './zoom/zoom.component';
 import { TimeComponent } from './time/time.component';
 import { SegmentComponent } from './segment/segment.component';
+import { ColorScaleComponent } from './colorsscale/color.scale.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { SegmentComponent } from './segment/segment.component';
     TrackComponent,
     ZoomComponent,
     TimeComponent,
+    ColorScaleComponent,
     SegmentComponent
   ],
   imports: [
