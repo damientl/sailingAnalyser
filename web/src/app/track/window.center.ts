@@ -31,7 +31,7 @@ export class WindowCenter{
     let maxDif = Date.now();
     let closestSeg:Segment = this.segs[0];
     for(const seg of this.segs){
-      const dif = WindowCenter.difTime(new Date(seg.time), percentTime);
+      const dif = Math.abs(WindowCenter.difTime(new Date(seg.time), percentTime));
       if(dif < maxDif){
         closestSeg = seg;
         maxDif = dif;

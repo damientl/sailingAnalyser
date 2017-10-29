@@ -84,6 +84,7 @@ describe('center tests', () => {
 
     const windowCenter = new WindowCenter(segs);
     const centerSeg:Segment = windowCenter.findClosestTime(percentTime);
+
     expect( new Date(centerSeg.time).getTime() ).toBe(beforeMiddleTime.getTime());
 
   });

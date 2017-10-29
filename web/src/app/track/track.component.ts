@@ -41,6 +41,7 @@ export class TrackComponent implements OnInit  {
   }
 
   handleZoomChange(event: number): void {
+    console.log(event);
     this.trackWindow.setZoom(event);
     this.segmentDrawing.drawSegments();
   }
@@ -48,7 +49,7 @@ export class TrackComponent implements OnInit  {
   handleTimeChange(event: number): void {
     this.trackWindow.center = this.windowCenter.centerOnTime(event).
           getOrElse(this.segmentDrawing.getTrackCenter());
-    console.log('time' + event);
+    this.segmentDrawing.drawSegments();
   }
 
 }
