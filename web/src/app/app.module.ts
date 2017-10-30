@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
+import {HttpClientModule} from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
 import { D3SliderDirective } from 'ng-d3-slider/d3-slider.directive';
 import { AppComponent } from './app.component';
 import { TrackComponent } from './track/track.component';
@@ -22,8 +22,8 @@ import { ColorScaleComponent } from './colorsscale/color.scale.component';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     FormsModule,
-    HttpModule
   ],
   providers: [],
   bootstrap: [AppComponent]

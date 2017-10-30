@@ -31,7 +31,6 @@ export class ColorScaleComponent implements OnInit  {
       }
     }
     drawLine(i, ctx):void{
-      console.log('i'+i+' coilor: '+ SpeedMath.perc2color(i));
       ctx.beginPath();
       ctx.lineWidth = 20;
       ctx.strokeStyle = SpeedMath.perc2color(i);

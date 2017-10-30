@@ -19,6 +19,7 @@ export class TrackComponent implements OnInit  {
   trackWindow: TrackWindow;
   segmentDrawing:SegmentDrawing;
   windowCenter:WindowCenter;
+  segmentsLoaded = false;
 
   constructor(private segmentService: SegmentService) {
     this.trackWindow = new TrackWindow();
@@ -26,11 +27,15 @@ export class TrackComponent implements OnInit  {
   getSegments(): void {
     this.segmentService.getSegmentsRest().then(
         (val) => {
+          this.segmentsLoaded = true;
           this.segmentDrawing = new SegmentDrawing(this.segmentComponent, val);
           this.windowCenter = new WindowCenter(val);
           this.segmentDrawing.drawSegments();
         },
-        (err) => console.error(err)
+        (err) => {
+          this.segmentsLoaded = false;
+          console.error(err);
+        }
       );
   }
 
@@ -41,12 +46,18 @@ export class TrackComponent implements OnInit  {
   }
 
   handleZoomChange(event: number): void {
+    if(!this.segmentsLoaded){
+      return;
+    }
     console.log(event);
     this.trackWindow.setZoom(event);
     this.segmentDrawing.drawSegments();
   }
 
   handleTimeChange(event: number): void {
+    if(!this.segmentsLoaded){
+      return;
+    }
     this.trackWindow.center = this.windowCenter.centerOnTime(event).
           getOrElse(this.segmentDrawing.getTrackCenter());
     this.segmentDrawing.drawSegments();
