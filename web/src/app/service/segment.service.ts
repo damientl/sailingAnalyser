@@ -28,7 +28,7 @@ export class SegmentService {
     } else {
       // The backend returned an unsuccessful response code.
       // The response body may contain clues as to what went wrong,
-      console.log(`Backend returned code ${err.status}, body was: ${err.error}`);
+      console.log(`Backend returned code ${err.status}, body was: ${err.error + JSON.stringify(err.error)}`);
     }
     reject('Could not get segments from server!');
   }

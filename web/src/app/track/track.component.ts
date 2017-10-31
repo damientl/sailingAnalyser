@@ -30,6 +30,8 @@ export class TrackComponent implements OnInit  {
           this.segmentsLoaded = true;
           this.segmentDrawing = new SegmentDrawing(this.segmentComponent, val);
           this.windowCenter = new WindowCenter(val);
+          // this.center(0);
+          this.centerOnTime();
           this.segmentDrawing.drawSegments();
         },
         (err) => {
@@ -38,7 +40,10 @@ export class TrackComponent implements OnInit  {
         }
       );
   }
-
+  centerOnTime(){
+      this.trackWindow.center = this.windowCenter.getCenterOnTime(new Date('2017-10-08T15:46:43.000Z')).
+            getOrElse(this.segmentDrawing.getTrackCenter());
+  }
 
   ngOnInit(): void {
     this.segmentComponent.trackWindow = this.trackWindow;
@@ -46,21 +51,23 @@ export class TrackComponent implements OnInit  {
   }
 
   handleZoomChange(event: number): void {
-    if(!this.segmentsLoaded){
-      return;
-    }
-    console.log(event);
+    this.checkSegmentsLoaded();
     this.trackWindow.setZoom(event);
     this.segmentDrawing.drawSegments();
   }
 
   handleTimeChange(event: number): void {
-    if(!this.segmentsLoaded){
-      return;
-    }
-    this.trackWindow.center = this.windowCenter.centerOnTime(event).
-          getOrElse(this.segmentDrawing.getTrackCenter());
+    this.checkSegmentsLoaded();
+    this.center(event);
     this.segmentDrawing.drawSegments();
   }
-
+  center(percent){
+    this.trackWindow.center = this.windowCenter.getCenterOnPercTime(percent).
+          getOrElse(this.segmentDrawing.getTrackCenter());
+  }
+  checkSegmentsLoaded():void{
+    if(!this.segmentsLoaded){
+      throw new Error('segments not loaded.');
+    }
+  }
 }

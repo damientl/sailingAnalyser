@@ -21,6 +21,7 @@ export class TrackWindow {
     return this.lonZoom;
   }
   setZoom(number): void {
+    number = 100 - number;
     this.lonZoom = this.iniZoom * (number / 100);
   }
   setIniZoom(iniZoom):void{

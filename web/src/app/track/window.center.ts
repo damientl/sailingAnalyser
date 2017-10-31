@@ -10,11 +10,11 @@ export class WindowCenter{
   static totalTime(a:Date, b:Date):number{
     return DateUtil.difTime(a,b);
   }
-  static percTime(date:Date, perc:number, total:number){
+  static percTime(date:Date, perc:number, total:number):Date{
     const offset = total * (perc/100);
     return new Date(date.getTime() + offset);
   }
-  centerOnTime(time:number):Option<CanvasPoint>{
+  getCenterOnPercTime(time:number):Option<CanvasPoint>{
     if(this.segs.length === 0){
       return option(null);
     }
@@ -22,6 +22,10 @@ export class WindowCenter{
     const finalTime =  new Date(this.segs[this.segs.length-1].time);
     const percentTime = WindowCenter.percTime(initialTime, time, WindowCenter.totalTime(initialTime,finalTime));
     return option( this.findClosestTime(percentTime).segToPoint());
+  }
+
+  getCenterOnTime(time:Date):Option<CanvasPoint>{
+    return option( this.findClosestTime(time).segToPoint());
   }
 
   findClosestTime(percentTime:Date):Segment{

@@ -24,8 +24,8 @@ export class ZoomComponent {
 
 
   constructor() {
-    this.minValue = 1;
-    this.maxValue = 100;
+    this.minValue = 0;
+    this.maxValue = 99;
     this.initilalValue = 50;
     this.value = this.initilalValue;
     this.valueLtr = this.initilalValue;

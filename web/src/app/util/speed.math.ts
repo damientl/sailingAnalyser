@@ -3,20 +3,33 @@ import { TrackWindow } from '../model/track.window';
 import { Segment } from '../model/segment';
 import { DateUtil } from '../util/date.util';
 
-const MAXSPEED = 20;
-const MINSPEED = 5;
+const MAXSPEED = 21;
+const MINSPEED = 0;
 const MSTOKNOT = 1.94384;
 
 export class SpeedMath {
 
-  maxSpeed = MAXSPEED;
-  minSpeed = MINSPEED;
-  static perc2color(perc): string {
+  static speedColor(a: Segment, b: Segment): string {
+    const difTime = DateUtil.difTime(DateUtil.toJSDate(a.time), DateUtil.toJSDate(b.time));
+
+    return  SpeedMath.perc2color(this.percSpeed(this.speed(a.segToPoint(), b.segToPoint(), difTime), this.getMaxSpeed()));
+  }
+  static checkSpeedColor(a: Segment, b: Segment): string {
+    const difTime = DateUtil.difTime(DateUtil.toJSDate(a.time), DateUtil.toJSDate(b.time));
+
+    const perc = this.percSpeed(this.speed(a.segToPoint(), b.segToPoint(), difTime), this.getMaxSpeed());
     if(perc > 100){
-      perc = 0;
-    } else {
-      perc = 100-perc;
+      console.log('>100,  a:' + JSON.stringify(a));
+      console.log('>100,  b:' + JSON.stringify(b));
+    } else if(perc < 0) {
+      console.log('<0,  a:' + JSON.stringify(a));
+      console.log('<0,  b:' + JSON.stringify(b));
     }
+    return '';
+  }
+
+  static perc2color(perc): string {
+    perc = 100 - perc;
 
     let r, g, b = 0;
     if(perc < 50) {
@@ -30,21 +43,15 @@ export class SpeedMath {
     return '#' + ('000000' + h.toString(16)).slice(-6);
   }
 
-
-  speedColor(a: Segment, b: Segment): string {
-    const difTime = DateUtil.difTime(DateUtil.toJSDate(a.time), DateUtil.toJSDate(b.time));
-
-    return  SpeedMath.perc2color(this.percSpeed(this.speed(a.segToPoint(), b.segToPoint(), difTime)));
+  static percSpeed(speed: number, maxSpeed:number): number {
+    return (speed  / maxSpeed) * 100;
   }
 
-  speed(a: CanvasPoint, b: CanvasPoint, miliseconds: number): number {
+  static speed(a: CanvasPoint, b: CanvasPoint, miliseconds: number): number {
     return ((this.measure(a.x, a.y, b.x, b.y) * 1000) / miliseconds) * MSTOKNOT;
   }
 
-  percSpeed(speed: number): number {
-    return ((speed - this.minSpeed) / this.maxSpeed) * 100;
-  }
-  measure(lon1, lat1, lon2, lat2):number{  // generally used geo measurement function
+  static measure(lon1, lat1, lon2, lat2):number{  // generally used geo measurement function
     let R = 6378.137; // Radius of earth in KM
     let dLat = lat2 * Math.PI / 180 - lat1 * Math.PI / 180;
     let dLon = lon2 * Math.PI / 180 - lon1 * Math.PI / 180;
@@ -54,6 +61,9 @@ export class SpeedMath {
     let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
     let d = R * c;
     return d * 1000; // meters
+  }
+  static getMaxSpeed():number{
+    return MAXSPEED;
   }
 
 }
