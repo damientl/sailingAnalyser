@@ -11,13 +11,15 @@ export class SpeedMath {
 
   static speedColor(a: Segment, b: Segment): string {
     const difTime = DateUtil.difTime(DateUtil.toJSDate(a.time), DateUtil.toJSDate(b.time));
+    const percSpeed = this.percSpeed(
+      this.speed(a.segToPoint(), b.segToPoint(), difTime),
+      this.getMaxSpeed());
 
-    return  SpeedMath.perc2color(this.percSpeed(this.speed(a.segToPoint(), b.segToPoint(), difTime), this.getMaxSpeed()));
+    this.checkSpeedColor(percSpeed, a, b);
+
+    return  SpeedMath.perc2color(percSpeed);
   }
-  static checkSpeedColor(a: Segment, b: Segment): string {
-    const difTime = DateUtil.difTime(DateUtil.toJSDate(a.time), DateUtil.toJSDate(b.time));
-
-    const perc = this.percSpeed(this.speed(a.segToPoint(), b.segToPoint(), difTime), this.getMaxSpeed());
+  static checkSpeedColor(perc, a, b): void {
     if(perc > 100){
       console.log('>100,  a:' + JSON.stringify(a));
       console.log('>100,  b:' + JSON.stringify(b));
@@ -25,7 +27,6 @@ export class SpeedMath {
       console.log('<0,  a:' + JSON.stringify(a));
       console.log('<0,  b:' + JSON.stringify(b));
     }
-    return '';
   }
 
   static perc2color(perc): string {

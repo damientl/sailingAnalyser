@@ -38,8 +38,6 @@ export class SegmentDrawing{
       const nextSeg: Segment = this.segments[i];
       const color = SpeedMath.speedColor(seg, nextSeg);
 
-      SpeedMath.checkSpeedColor(seg, nextSeg);
-
       this.segmentComponent.drawSegLine(canvasMath.pointOnCanvas(seg.segToPoint(), this.trackWindow),
                       canvasMath.pointOnCanvas(nextSeg.segToPoint(), this.trackWindow)
                       , color);
