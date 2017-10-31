@@ -11,7 +11,7 @@ describe('center tests', () => {
 
 
     const windowCenter = new WindowCenter(segs);
-    const center: Option<CanvasPoint>  = windowCenter.centerOnTime(0);
+    const center: Option<CanvasPoint>  = windowCenter.getCenterOnPercTime(0);
     expect(center.isDefined).toBeTruthy();
 
   });
@@ -20,7 +20,7 @@ describe('center tests', () => {
 
 
     const windowCenter = new WindowCenter(segs);
-    const center: Option<CanvasPoint>  = windowCenter.centerOnTime(0);
+    const center: Option<CanvasPoint>  = windowCenter.getCenterOnPercTime(0);
     expect(center.isDefined).toBeTruthy();
     expect(center.get.equals(segs[0].segToPoint())).toBeTruthy();
 
