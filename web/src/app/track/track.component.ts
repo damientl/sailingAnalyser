@@ -30,8 +30,8 @@ export class TrackComponent implements OnInit  {
           this.segmentsLoaded = true;
           this.segmentDrawing = new SegmentDrawing(this.segmentComponent, val);
           this.windowCenter = new WindowCenter(val);
-          // this.center(0);
-          this.centerOnTime();
+          this.center(0);
+          // this.centerOnTime();
           this.segmentDrawing.drawSegments();
         },
         (err) => {
@@ -40,6 +40,7 @@ export class TrackComponent implements OnInit  {
         }
       );
   }
+  // TODO: show point over 100% speed, and allow set max speed on screen
   centerOnTime(){
       this.trackWindow.center = this.windowCenter.getCenterOnTime(new Date('2017-10-08T15:46:43.000Z')).
             getOrElse(this.segmentDrawing.getTrackCenter());
