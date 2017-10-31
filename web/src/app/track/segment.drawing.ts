@@ -6,14 +6,18 @@ import { SpeedMath } from '../util/speed.math';
 import { CanvasMath } from '../util/canvas.math';
 import { Borders } from '../model/borders';
 import { CanvasPoint } from '../model/canvas.point';
+import { SpeedStats } from './speed.stats';
+
 
 export class SegmentDrawing{
 
     trackWindow: TrackWindow;
+    speedStats = new SpeedStats();
 
     constructor(private segmentComponent:SegmentComponent, private segments:Segment[]) {
       this.trackWindow = segmentComponent.trackWindow;
       this.setupCanvas();
+      this.speedStats.setDefaultSpeed();
     }
 
     drawSegments(): void {
@@ -22,21 +26,19 @@ export class SegmentDrawing{
       }
       this.segmentComponent.clearSegments();
 
+      this.speedStats.setMaxSpeed(this.segments);
+
       let i = 1;
-      for (const seg of this.segments) {
-        this.drawSegment(seg, i);
+      while (i < this.segments.length) {
+        this.drawSegment(this.segments[i-1], this.segments[i]);
         i++;
       }
     }
 
-    drawSegment(seg: Segment, i): void {
-      if (i >= this.segments.length) {
-        return;
-      }
+    drawSegment(seg: Segment, nextSeg: Segment): void {
 
       const canvasMath = new CanvasMath();
-      const nextSeg: Segment = this.segments[i];
-      const color = SpeedMath.speedColor(seg, nextSeg);
+      const color = this.speedStats.speedColor(seg, nextSeg);
 
       this.segmentComponent.drawSegLine(canvasMath.pointOnCanvas(seg.segToPoint(), this.trackWindow),
                       canvasMath.pointOnCanvas(nextSeg.segToPoint(), this.trackWindow)

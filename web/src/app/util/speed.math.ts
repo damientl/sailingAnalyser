@@ -3,22 +3,9 @@ import { TrackWindow } from '../model/track.window';
 import { Segment } from '../model/segment';
 import { DateUtil } from '../util/date.util';
 
-const MAXSPEED = 21;
-const MINSPEED = 0;
 const MSTOKNOT = 1.94384;
 
 export class SpeedMath {
-
-  static speedColor(a: Segment, b: Segment): string {
-    const difTime = DateUtil.difTime(DateUtil.toJSDate(a.time), DateUtil.toJSDate(b.time));
-    const percSpeed = this.percSpeed(
-      this.speed(a.segToPoint(), b.segToPoint(), difTime),
-      this.getMaxSpeed());
-
-    this.checkSpeedColor(percSpeed, a, b);
-
-    return  SpeedMath.perc2color(percSpeed);
-  }
   static checkSpeedColor(perc, a, b): void {
     if(perc > 100){
       console.log('>100,  a:' + JSON.stringify(a));
@@ -45,7 +32,7 @@ export class SpeedMath {
   }
 
   static percSpeed(speed: number, maxSpeed:number): number {
-    return (speed  / maxSpeed) * 100;
+    return (speed* 100) / maxSpeed ;
   }
 
   static speed(a: CanvasPoint, b: CanvasPoint, miliseconds: number): number {
@@ -63,8 +50,4 @@ export class SpeedMath {
     let d = R * c;
     return d * 1000; // meters
   }
-  static getMaxSpeed():number{
-    return MAXSPEED;
-  }
-
 }
