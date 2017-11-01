@@ -1,5 +1,5 @@
 import { CanvasPoint } from '../model/canvas.point';
 
 export class Line{
-  constructor(public start:CanvasPoint,public end:CanvasPoint,public color:string){}
+  constructor(readonly start:CanvasPoint,readonly end:CanvasPoint,readonly color:string){}
 }
