@@ -20,10 +20,6 @@ export class SegmentComponent {
       }
     }
 
-    getCtx(): CanvasRenderingContext2D {
-      return this.canvasRef.nativeElement.getContext('2d');
-    }
-
     drawSegLine(a: CanvasPoint, b: CanvasPoint, color: string): void {
       const ctx: CanvasRenderingContext2D = this.getCtx();
       ctx.beginPath();
@@ -36,6 +32,10 @@ export class SegmentComponent {
     clearSegments(): void {
       const ctx: CanvasRenderingContext2D = this.getCtx();
       ctx.clearRect(0, 0, this.trackWindow.canvasWidth, this.trackWindow.canvasHeight);
+    }
+
+    getCtx(): CanvasRenderingContext2D {
+      return this.canvasRef.nativeElement.getContext('2d');
     }
 
 }

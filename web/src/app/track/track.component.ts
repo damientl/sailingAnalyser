@@ -17,7 +17,7 @@ export class TrackComponent implements OnInit, OnDestroy {
 
   @ViewChild(SegmentComponent)
   private segmentComponent: SegmentComponent;
-  @Output() maxSpeed = 0;
+  maxSpeed = 0;
   maxSpeedSubscription: Subscription;
 
   trackWindow: TrackWindow;
@@ -29,25 +29,20 @@ export class TrackComponent implements OnInit, OnDestroy {
     this.trackWindow = new TrackWindow();
   }
 
-  ngOnDestroy() {
-      // unsubscribe to ensure no memory leaks
-      this.maxSpeedSubscription.unsubscribe();
-  }
-
   getSegments(): void {
     this.segmentService.getSegmentsRest().then(
-        (val) => this.handleSegments(val),
+        (val) => this.handleSegmentsLoaded(val),
         (err) => {
           this.segmentsLoaded = false;
           console.error(err);
         }
       );
   }
-  handleSegments(segs){
+  handleSegmentsLoaded(segs){
     this.segmentsLoaded = true;
     this.segmentDrawing = new SegmentDrawing(this.trackWindow, segs);
     this.windowCenter = new WindowCenter(segs);
-    this.center(0);
+    this.centerOnPercTime(0);
     // this.centerOnTime();
     this.maxSpeedSubscription = this.segmentDrawing.speedStats.observeMaxSpeed().subscribe(
       speed => {
@@ -78,10 +73,10 @@ export class TrackComponent implements OnInit, OnDestroy {
 
   handleTimeChange(event: number): void {
     this.checkSegmentsLoaded();
-    this.center(event);
+    this.centerOnPercTime(event);
     this.drawSegments();
   }
-  center(percent){
+  centerOnPercTime(percent){
     this.trackWindow.center = this.windowCenter.getCenterOnPercTime(percent).
           getOrElse(this.segmentDrawing.getTrackCenter());
   }
@@ -89,5 +84,10 @@ export class TrackComponent implements OnInit, OnDestroy {
     if(!this.segmentsLoaded){
       throw new Error('segments not loaded.');
     }
+  }
+
+  ngOnDestroy() {
+      // unsubscribe to ensure no memory leaks
+      this.maxSpeedSubscription.unsubscribe();
   }
 }

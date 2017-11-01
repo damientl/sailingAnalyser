@@ -7,7 +7,6 @@ import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 
 const MAXSPEED = 21;
-const MINSPEED = 0;
 
 export class SpeedStats{
   maxSpeedSubject:Subject<number> = new Subject<number>();

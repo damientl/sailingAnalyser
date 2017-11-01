@@ -8,8 +8,6 @@ import { CanvasPoint } from '../model/canvas.point';
 import { SpeedStats } from './speed.stats';
 import { Line } from '../model/line';
 
-
-
 export class SegmentDrawing{
 
     speedStats = new SpeedStats();
@@ -29,17 +27,17 @@ export class SegmentDrawing{
 
       let i = 1;
       while (i < this.segments.length) {
-        lines.push(this.drawSegment(this.segments[i-1], this.segments[i]));
+        lines.push(this.getLine(this.segments[i-1], this.segments[i]));
         i++;
       }
       return lines;
     }
 
-    drawSegment(seg: Segment, nextSeg: Segment): Line {
+    getLine(seg: Segment, nextSeg: Segment): Line {
 
       const canvasMath = new CanvasMath();
       const color = this.speedStats.speedColor(seg, nextSeg);
-      // this.segmentComponent.drawSegLine
+
       return new Line(canvasMath.pointOnCanvas(seg.segToPoint(), this.trackWindow),
                       canvasMath.pointOnCanvas(nextSeg.segToPoint(), this.trackWindow)
                       , color);

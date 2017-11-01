@@ -2,6 +2,13 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.4.5.
 
+project uses following Typescript language features:
+
+optional, readonly, static, private,
+
+following angular features:
+ promises, Component, ViewChild, Output, EventEmitter, observable,CanvasRenderingContext2D, Injectable, Service, HttpClient, jasmine unit tests,
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
