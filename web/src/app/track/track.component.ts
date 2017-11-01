@@ -6,6 +6,7 @@ import { SegmentDrawing } from '../track/segment.drawing';
 import { WindowCenter } from '../track/window.center';
 import {Option, option, some, none} from 'ts-option';
 import { Subscription } from 'rxjs/Subscription';
+import { Line } from '../model/line';
 
 @Component({
   selector: 'track',
@@ -44,7 +45,7 @@ export class TrackComponent implements OnInit, OnDestroy {
   }
   handleSegments(segs){
     this.segmentsLoaded = true;
-    this.segmentDrawing = new SegmentDrawing(this.segmentComponent, segs);
+    this.segmentDrawing = new SegmentDrawing(this.trackWindow, segs);
     this.windowCenter = new WindowCenter(segs);
     this.center(0);
     // this.centerOnTime();
@@ -52,9 +53,13 @@ export class TrackComponent implements OnInit, OnDestroy {
       speed => {
         this.maxSpeed = speed;
       });
-    this.segmentDrawing.drawSegments();
+    this.drawSegments();
   }
   // TODO: show point over 100% speed
+  drawSegments(){
+    this.segmentComponent.clearSegments();
+    this.segmentComponent.drawLines(this.segmentDrawing.getSegmentLines());
+  }
   centerOnTime(){
       this.trackWindow.center = this.windowCenter.getCenterOnTime(new Date('2017-10-08T15:46:43.000Z')).
             getOrElse(this.segmentDrawing.getTrackCenter());
@@ -68,13 +73,13 @@ export class TrackComponent implements OnInit, OnDestroy {
   handleZoomChange(event: number): void {
     this.checkSegmentsLoaded();
     this.trackWindow.setZoom(event);
-    this.segmentDrawing.drawSegments();
+    this.drawSegments();
   }
 
   handleTimeChange(event: number): void {
     this.checkSegmentsLoaded();
     this.center(event);
-    this.segmentDrawing.drawSegments();
+    this.drawSegments();
   }
   center(percent){
     this.trackWindow.center = this.windowCenter.getCenterOnPercTime(percent).

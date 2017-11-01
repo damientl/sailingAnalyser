@@ -1,6 +1,7 @@
 import { Component, ElementRef, ViewChild} from '@angular/core';
 import { TrackWindow } from '../model/track.window';
 import { CanvasPoint } from '../model/canvas.point';
+import { Line } from '../model/line';
 
 @Component({
   selector: 'segment',
@@ -12,6 +13,12 @@ export class SegmentComponent {
     trackWindow: TrackWindow;
 
     constructor() {}
+
+    drawLines(lines:Line[]):void{
+      for(let line of lines){
+        this.drawSegLine(line.start, line.end, line.color);
+      }
+    }
 
     getCtx(): CanvasRenderingContext2D {
       return this.canvasRef.nativeElement.getContext('2d');
