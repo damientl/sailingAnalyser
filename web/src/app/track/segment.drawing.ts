@@ -53,4 +53,10 @@ export class SegmentDrawing{
       const borders:Borders = canvasMath.findBorders(this.segments);
       return canvasMath.findCenterPoint(borders);
     }
+
+    getCenterPoint(center: CanvasPoint) {
+      const canvasMath = new CanvasMath();
+      const borders:Borders = canvasMath.findBorders(this.segments);
+      return canvasMath.pointOnCanvas(center, this.trackWindow);
+    }
 }

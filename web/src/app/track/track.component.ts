@@ -51,9 +51,18 @@ export class TrackComponent implements OnInit, OnDestroy {
     this.drawSegments();
   }
   // TODO: show point over 100% speed
-  drawSegments(){
+  drawSegments(percent?){
     this.segmentComponent.clearSegments();
     this.segmentComponent.drawLines(this.segmentDrawing.getSegmentLines());
+
+    if(!percent) {
+      percent = 0;
+    }
+
+    this.segmentComponent.drawPoint(this.segmentDrawing.getCenterPoint(
+      this.windowCenter.getCenterOnPercTime(percent).
+            getOrElse(this.segmentDrawing.getTrackCenter())
+    ), 10);
   }
   centerOnTime(){
       this.trackWindow.center = this.windowCenter.getCenterOnTime(new Date('2017-10-08T15:46:43.000Z')).
@@ -74,7 +83,7 @@ export class TrackComponent implements OnInit, OnDestroy {
   handleTimeChange(event: number): void {
     this.checkSegmentsLoaded();
     this.centerOnPercTime(event);
-    this.drawSegments();
+    this.drawSegments(event);
   }
   centerOnPercTime(percent){
     this.trackWindow.center = this.windowCenter.getCenterOnPercTime(percent).

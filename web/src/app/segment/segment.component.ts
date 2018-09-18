@@ -21,6 +21,7 @@ export class SegmentComponent {
     }
 
     drawSegLine(a: CanvasPoint, b: CanvasPoint, color: string): void {
+       // console.log('a', a, 'b', b);
       const ctx: CanvasRenderingContext2D = this.getCtx();
       ctx.beginPath();
       ctx.lineWidth = 5;
@@ -36,6 +37,19 @@ export class SegmentComponent {
 
     getCtx(): CanvasRenderingContext2D {
       return this.canvasRef.nativeElement.getContext('2d');
+    }
+
+    drawPoint(a:CanvasPoint, size: number): void {
+       // console.log('point a', a);
+        const ctx: CanvasRenderingContext2D = this.getCtx();
+        ctx.beginPath();
+        ctx.lineWidth = 3;
+        ctx.strokeStyle = '#000000';
+        ctx.moveTo(a.x - size, a.y);
+        ctx.lineTo(a.x + size, a.y);
+        ctx.moveTo(a.x, a.y - size);
+        ctx.lineTo(a.x, a.y + size);
+        ctx.stroke();
     }
 
 }
