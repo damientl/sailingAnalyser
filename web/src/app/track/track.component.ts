@@ -50,7 +50,7 @@ export class TrackComponent implements OnInit, OnDestroy {
       });
     this.drawSegments();
   }
-  // TODO: show point over 100% speed
+  // TODO: show point   over 100% speed
   drawSegments(percent?){
     this.segmentComponent.clearSegments();
     this.segmentComponent.drawLines(this.segmentDrawing.getSegmentLines());
