@@ -28,6 +28,7 @@ export class TimeComponent {
     subscription: Subscription;
     timer;
     delta;
+    speed=50;
 
     constructor() {
       this.minValue = 0;
@@ -55,7 +56,7 @@ export class TimeComponent {
    }
 
    updateValue() {
-        this.value = this.value + this.delta/4;
+        this.value = this.value + (this.delta * (this.speed/100) )/4;
         if(this.value < 0) {
           this.value = 0;
         }

@@ -17,17 +17,13 @@ export class GpsRecordComponent implements OnInit {
     }
 
     onChange(event){
-      console.log('event', event);
       this.file = event.target.files[0];
     }
 
     onSubmit() {
       let fileReader = new FileReader();
       fileReader.onload = (e) => {
-        console.log(fileReader.result);
         const segments = new XmlParser().parseRecord(fileReader.result);
-        console.log('segments', segments);
-
         this.changeValue.emit(segments);
       };
       fileReader.readAsText(this.file);
