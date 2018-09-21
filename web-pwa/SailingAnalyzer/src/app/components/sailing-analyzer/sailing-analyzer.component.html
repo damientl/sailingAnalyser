@@ -1,0 +1,36 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<section>
+  <div style="text-align:center">
+    <h1>
+      Welcome to {{title}}!
+    </h1>
+  </div>
+  <h2>Ambiente: </h2>
+  <ul>
+    <li>
+      <h2>Vento:</h2>
+      <div><label>angulo: </label> <input [(ngModel)]="vento.angulo" placeholder="0"></div>
+      <div><label>forca: </label>  <input [(ngModel)]="vento.forca" placeholder="0"></div>
+    </li>
+    <li>
+      <h2>Corrente:</h2>
+      <div><label>angulo: </label> <input [(ngModel)]="corrente.angulo" placeholder="0"></div>
+      <div><label>forca: </label>  <input [(ngModel)]="corrente.forca" placeholder="0"></div>
+    </li>
+    <li>
+      <h2>Modo:</h2>
+      velocidade <br>
+      velocidade de orça, sobre o solo <br>
+      velocidade de orça, sobre a agua <br>
+      velocidade em relaçao a marca, sobre o solo
+    </li>
+    <li>
+      Registro GPS:
+      <gpsrecord (changeValue)="onLoadGpsRecord($event)"></gpsrecord>
+    </li>
+    <li>
+    <track [segmentsLoad]="segmentsLoad"/>
+    </li>
+  </ul>
+  </section>
+  

@@ -1,0 +1,7 @@
+<!-- 
+      <div ngD3Slider id="timeSlider" [disable]='toggleDisable' [length]="600" [maxValue]="maxValue" [minValue]="minValue"
+      [initialValue]="initilalValue" (selectedValue)="selectedValue($event)"></div>
+!-->
+<button (click)="onTimeChange(-1)">back </button>
+<button (click)="onTimeChange(1)">forward </button>
+speed<input type="number" [(ngModel)]="speed"/> 
