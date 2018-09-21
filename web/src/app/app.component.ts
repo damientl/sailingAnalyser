@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input,  EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -7,14 +7,20 @@ import { Component, Input } from '@angular/core';
 })
 export class AppComponent {
   title = 'Analise do velejo';
-  @Input() vento: Vento = {
+  vento: Vento = {
     angulo: 0,
     forca: 12
   };
-  @Input() corrente: Corrente = {
+  corrente: Corrente = {
     angulo: 0,
     forca: 0
   };
+
+  segmentsLoad:EventEmitter<any> = new EventEmitter<any>();
+
+  onLoadGpsRecord(event){
+    this.segmentsLoad.emit(event);
+  }
 }
 
 export class Vento {

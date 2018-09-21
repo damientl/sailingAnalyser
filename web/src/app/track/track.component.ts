@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Output, OnDestroy  } from '@angular/core';
+import { Component, OnInit, ViewChild, Output, OnDestroy, Input, EventEmitter  } from '@angular/core';
 import { SegmentComponent } from '../segment/segment.component';
 import { TrackWindow } from '../model/track.window';
 import { SegmentService } from '../service/segment.service';
@@ -19,6 +19,9 @@ export class TrackComponent implements OnInit, OnDestroy {
   private segmentComponent: SegmentComponent;
   maxSpeed = 0;
   maxSpeedSubscription: Subscription;
+
+  @Input()
+  segmentsLoad: EventEmitter<any>;
 
   trackWindow: TrackWindow;
   segmentDrawing:SegmentDrawing;
@@ -71,7 +74,11 @@ export class TrackComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.segmentComponent.trackWindow = this.trackWindow;
-    this.getSegments();
+    // this.getSegments();
+    this.segmentsLoad.subscribe(segments => {
+      console.log('segments loaded');
+      this.handleSegmentsLoaded(segments);
+    });
   }
 
   handleZoomChange(event: number): void {

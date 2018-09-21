@@ -1,5 +1,7 @@
 import { Component, Output, EventEmitter } from '@angular/core';
-import { Observable, Subscription} from 'rxjs';
+import { Observable} from 'rxjs/Observable';
+import { timer } from 'rxjs/observable/timer';
+import { Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'time',
@@ -41,7 +43,7 @@ export class TimeComponent {
       this.toggleDisable = 'enable';
       this.toggleDisableText = 'disable';
 
-      this.timer = Observable.timer(10, 200);
+      this.timer = timer(10, 200);
 
    }
 

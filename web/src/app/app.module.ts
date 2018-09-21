@@ -9,6 +9,7 @@ import { ZoomComponent } from './zoom/zoom.component';
 import { TimeComponent } from './time/time.component';
 import { SegmentComponent } from './segment/segment.component';
 import { ColorScaleComponent } from './colorsscale/color.scale.component';
+import { GpsRecordComponent } from './gpsrecord/gpsrecord.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ColorScaleComponent } from './colorsscale/color.scale.component';
     ZoomComponent,
     TimeComponent,
     ColorScaleComponent,
-    SegmentComponent
+    SegmentComponent,
+    GpsRecordComponent,
   ],
   imports: [
     BrowserModule,

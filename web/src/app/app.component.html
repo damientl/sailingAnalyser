@@ -24,6 +24,12 @@
     velocidade de orça, sobre a agua <br>
     velocidade em relaçao a marca, sobre o solo
   </li>
-  <track/>
+  <li>
+    Registro GPS:
+    <gpsrecord (changeValue)="onLoadGpsRecord($event)"></gpsrecord>
+  </li>
+  <li>
+  <track [segmentsLoad]="segmentsLoad"/>
+  </li>
 </ul>
 </section>
