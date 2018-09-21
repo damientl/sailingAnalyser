@@ -37,9 +37,9 @@ export class ZoomComponent {
     this.toggleDisable = 'enable';
     this.toggleDisableText = 'disable';
  }
- selectedValue(iSelectedValue){
-    this.value = iSelectedValue;
-    this.changeValue.emit(iSelectedValue);
+ selectedValue(){
+   console.log('zoomChange', this.value);
+    this.changeValue.emit(this.value);
  }
 
 }
